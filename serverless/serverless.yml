@@ -1,0 +1,18 @@
+service: live-html2
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: north-east-1
+functions:
+  transcode:
+    handler: handler.transcode
+    events:
+      - http:
+          path: transcode
+          method: post
+          cors: true
+plugins:
+  - serverless-offline

@@ -1,0 +1,22 @@
+{
+  "name": "live-html2",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "foreman": "3.0.0"
+  },
+  "scripts": {
+    "start": "./node_modules/.bin/nf start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j-sakamoto/live-html2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/j-sakamoto/live-html2/issues"
+  },
+  "homepage": "https://github.com/j-sakamoto/live-html2#readme"
+}

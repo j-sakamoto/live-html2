@@ -1,16 +1,19 @@
-window.onload = () => {
-  const startButton = document.querySelector('.start');
+import Vue from "vue"
+import Popup from "./popup.vue"
 
-  startButton.onclick = () => {
-    chrome.tabs.query({
-      active: true,
-      currentWindow: true,
-    }, (tabs) => {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        { startConvert: true },
-        response => window.close()
-      );
-    });
-  };
+window.onload = () => {
+  chrome.storage.sync.get(['selector'], storage => {
+    new Vue({
+      el: "#popup",
+      components: { Popup },
+      render: function (h) {
+        return h(Popup, {
+          props: {
+            chrome: chrome,
+            defaultSelector: storage.selector
+          }
+        })
+      },
+    })
+  })
 }

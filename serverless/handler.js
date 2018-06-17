@@ -55,7 +55,7 @@ module.exports.transcode = (event, context, callback) => {
       callback(null, response);
     })
     .catch(e => {
-      log(e)
+      console.log(e)
       callback(401, null)
     })
 };

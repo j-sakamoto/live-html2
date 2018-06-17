@@ -7,18 +7,20 @@
 
   "browser_action": {
     "default_icon": "icon.png",
-    "default_popup": "src/popup.html"
+    "default_popup": "src/build/popup.html"
   },
 
   "permissions": [
     "activeTab",
-    "tabs"
+    "tabs",
+    "storage"
   ],
 
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["src/build/main.js"]
+      "js": ["src/build/js/main.js"],
+      "css": ["src/build/js/main.css"]
     }
   ]
 }

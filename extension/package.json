@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "main": "src/js/main.js",
   "scripts": {
-    "build": "parcel build src/js/main.js -d src/build/ -o main.js",
-    "watch": "parcel watch src/js/main.js -d src/build/ -o main.js"
+    "build": "parcel build src/js/main.js src/popup.html -d src/build/ --public-url ./",
+    "watch": "parcel watch src/js/main.js src/popup.html -d src/build/ --public-url ./"
   },
   "author": "j.sakamoto",
   "dependencies": {
@@ -12,7 +12,14 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "parcel-bundler": "^1.6.2",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "vue": "^2.5.16",
+    "vue-hot-reload-api": "^2.3.0"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^2.0.0",
+    "node-sass": "^4.9.0",
+    "postcss-modules": "^1.1.0",
+    "pug": "^2.0.3",
+    "vue-template-compiler": "^2.5.16"
   }
 }

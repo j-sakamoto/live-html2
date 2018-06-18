@@ -1,10 +1,9 @@
 <template lang="pug">
 .liveHtml2App(@click="handleConvert")
-  span {{ isConverted ? "converted":"liveHtml2" }}
+  span {{ isConverted ? "resume":"liveHtml2" }}
 </template>
 
 <script>
-const endpoint = process.env.endpoint ? "http://localhost:3000/" : ""
 export default {
   name: "app",
   props: {
@@ -16,23 +15,32 @@ export default {
   data() {
     return {
       isConverted: false,
+      defaultHtml: ""
     }
   },
-  components: {
+  beforeMount() {
+    this.defaultHtml = this.target.innerHTML
   },
   methods: {
     handleConvert(e) {
-      if (!this.isConverted) this.convert();
+      if (this.isConverted)
+        this.resume()
+      else
+        this.convert()
     },
     convert() {
       const params = {
         html: String(this.target.innerText)
       }
-      this.$axios.post("http://localhost:3000/transcode", params)
+      this.$axios.post("https://7lli9frek1.execute-api.ap-northeast-1.amazonaws.com/dev/transcode", params)
         .then(res => {
           this.target.innerText = res.data.result
           this.isConverted = true
         })
+    },
+    resume() {
+      this.target.innerHTML = this.defaultHtml
+      this.isConverted = false
     }
   },
 }

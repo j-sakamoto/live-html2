@@ -1,6 +1,6 @@
 <template lang="pug">
 .liveHtml2App(@click="handleConvert")
-  span {{ isConverted ? "resume":"liveHtml2" }}
+  span {{ isConverted ? "resume":`liveHtml2${dest}` }}
 </template>
 
 <script>
@@ -9,6 +9,10 @@ export default {
   props: {
     target: {
       type: HTMLElement,
+      required: true
+    },
+    dest: {
+      type: String,
       required: true
     }
   },
@@ -29,10 +33,12 @@ export default {
         this.convert()
     },
     convert() {
+      const endpoint = process.env.ENDPOINT || "http://localhost:3000/transcode"
       const params = {
-        html: String(this.target.innerText)
+        html: String(this.target.innerText),
+        dest: this.dest
       }
-      this.$axios.post("https://7lli9frek1.execute-api.ap-northeast-1.amazonaws.com/dev/transcode", params)
+      this.$axios.post(endpoint, params)
         .then(res => {
           this.target.innerText = res.data.result
           this.isConverted = true

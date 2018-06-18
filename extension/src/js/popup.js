@@ -2,7 +2,7 @@ import Vue from "vue"
 import Popup from "./popup.vue"
 
 window.onload = () => {
-  chrome.storage.sync.get(['selector'], storage => {
+  chrome.storage.sync.get(['selector', 'dest'], storage => {
     new Vue({
       el: "#popup",
       components: { Popup },
@@ -10,7 +10,8 @@ window.onload = () => {
         return h(Popup, {
           props: {
             chrome: chrome,
-            defaultSelector: storage.selector
+            defaultSelector: storage.selector || "pre",
+            defaultDest: storage.dest || "pug"
           }
         })
       },

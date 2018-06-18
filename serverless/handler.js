@@ -1,8 +1,22 @@
 'use strict';
+
 const html2pug = require("html2pug")
+const exec = require("child-process-es6-promise").exec
 
 const pug = (html) => {
   return html2pug(html, { fragment: true })
+}
+
+const haml = (html) => {
+  return execRubyCommand(`echo '${html}' | html2haml -e --stdin`)
+}
+
+const slim = (html) => {
+  return execRubyCommand(`echo '${html}' | html2slim`)
+}
+
+const execRubyCommand = (command) => {
+  return exec(command).then(result => result.stdout)
 }
 
 const buildResponse = (status, data) => {
@@ -29,14 +43,14 @@ const transcode = (html, dest = "pug") => {
     setTimeout(() => {
       try {
         if (typeof html == "undefined" || typeof html == "null") throw new Error("html required.");
+
         let transcoder
-        switch (dest) {
-          case "pug":
-            transcoder = pug
-            break;
-          default:
-            new Error("undefined transcoder.")
-        }
+
+        if (["pug", "haml", "slim"].includes(dest))
+          transcoder = eval(dest);
+        else
+          new Error("undefined transcoder.");
+
         const transcoded = transcoder(html)
         resolve(transcoded)
       }
@@ -49,7 +63,7 @@ const transcode = (html, dest = "pug") => {
 
 module.exports.transcode = (event, context, callback) => {
   const params = parseBody(event.body)
-  transcode(params.html)
+  transcode(params.html, params.dest)
     .then(result => {
       const response = buildResponse(200, { result: result })
       callback(null, response);

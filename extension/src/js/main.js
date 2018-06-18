@@ -3,21 +3,22 @@ import App from './app'
 import axios from "axios"
 Vue.prototype.$axios = axios
 
-const appendApp = (selector) => {
+const appendApp = (params) => {
+  const { selector, dest } = params
   const targets = document.querySelectorAll(selector)
   Array.from(targets).forEach(target => {
     const app = document.createElement("div")
     app.setAttribute("class", "liveHtml2App")
     target.insertAdjacentElement("beforebegin", app)
 
-    console.log(selector);
     new Vue({
       el: app,
       components: { App },
       render: function (h) {
         return h(App, {
           props: {
-            target: target
+            target: target,
+            dest: dest,
           }
         })
       },
@@ -32,11 +33,14 @@ const resetApp = (selector) => {
 
 chrome.runtime.onMessage.addListener((request, sender, response) => {
   if (request.resetApp) {
-    resetApp(request.selector)
+    resetApp(request.params)
   }
 });
 
-chrome.storage.sync.get(['selector'], storage => {
-  const defaultSelector = storage.selector || "pre"
-  appendApp(defaultSelector)
+chrome.storage.sync.get(['selector', 'dest'], storage => {
+  const params = {
+    selector: storage.selector || "pre",
+    dest: storage.dest || "pug"
+  }
+  appendApp(params)
 })

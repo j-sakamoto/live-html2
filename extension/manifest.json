@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "live-html2",
-  "description": "Description of your chrome extension.",
+  "description": "指定されたコードブロックのセレクタに記載されたhtmlをpug記法へ書き換えます。",
   "version": "1.0",
 
   "browser_action": {

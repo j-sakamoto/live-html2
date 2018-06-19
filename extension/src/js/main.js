@@ -3,15 +3,18 @@ import App from './app'
 import axios from "axios"
 Vue.prototype.$axios = axios
 
+let apps = []
+
 const appendApp = (params) => {
   const { selector, dest } = params
   const targets = document.querySelectorAll(selector)
-  Array.from(targets).forEach(target => {
+
+  apps = Array.from(targets).map(target => {
     const app = document.createElement("div")
     app.setAttribute("class", "liveHtml2App")
     target.insertAdjacentElement("beforebegin", app)
 
-    new Vue({
+    return new Vue({
       el: app,
       components: { App },
       render: function (h) {
@@ -19,7 +22,8 @@ const appendApp = (params) => {
           props: {
             target: target,
             dest: dest,
-          }
+          },
+          ref: "app"
         })
       },
     })
@@ -27,7 +31,10 @@ const appendApp = (params) => {
 }
 
 const resetApp = (selector) => {
-  document.querySelectorAll(".liveHtml2App").forEach(target => target.remove())
+  apps.forEach(vue => {
+    vue.$refs.app.resume()
+    vue.$el.remove()
+  })
   appendApp(selector)
 }
 

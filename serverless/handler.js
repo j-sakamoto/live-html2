@@ -8,7 +8,7 @@ const pug = (html) => {
 }
 
 const haml = (html) => {
-  return execRubyCommand(`echo '${html}' | html2haml -e --stdin`)
+  return execRubyCommand(`echo '${html}' | html2haml -e --stdin --ruby19-attributes`)
 }
 
 const slim = (html) => {
@@ -62,8 +62,8 @@ const transcode = (html, dest = "pug") => {
 }
 
 module.exports.transcode = (event, context, callback) => {
-  const params = parseBody(event.body)
-  transcode(params.html, params.dest)
+  const { html, dest } = parseBody(event.body)
+  transcode(html, dest)
     .then(result => {
       const response = buildResponse(200, { result: result })
       callback(null, response);

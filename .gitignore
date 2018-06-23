@@ -1,4 +1,4 @@
 /node_modules
 /extension.pem
-/extension.crx
-/extension.zip
+/extension.crx*
+/extension.zip*

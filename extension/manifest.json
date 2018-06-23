@@ -3,7 +3,7 @@
 
   "name": "live-html2",
   "description": "指定されたコードブロックのセレクタに記載されたhtmlをpug記法へ書き換えます。",
-  "version": "1.0",
+  "version": "2.0",
   "icons": {
     "16": "icon.png",
     "48": "icon.png",

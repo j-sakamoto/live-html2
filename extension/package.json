@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "main": "src/js/main.js",
   "scripts": {
-    "build": "parcel build src/js/main.js src/popup.html -d src/build/ --public-url ./",
-    "watch": "parcel watch src/js/main.js src/popup.html -d src/build/ --public-url ./"
+    "build": "cp templates/* src/build/ && parcel build src/js/main.js src/popup.html -d src/build/ --public-url ./",
+    "watch": "cp templates/* src/build/ && parcel watch src/js/main.js src/popup.html -d src/build/ --public-url ./"
   },
   "author": "j.sakamoto",
   "dependencies": {

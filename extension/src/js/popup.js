@@ -10,7 +10,7 @@ window.onload = () => {
         return h(Popup, {
           props: {
             chrome: chrome,
-            defaultSelector: storage.selector || "pre",
+            defaultSelector: storage.selector || "pre>code",
             defaultDest: storage.dest || "pug"
           }
         })

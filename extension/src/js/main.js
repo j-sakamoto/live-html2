@@ -46,7 +46,7 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
 
 chrome.storage.sync.get(['selector', 'dest'], storage => {
   const params = {
-    selector: storage.selector || "pre",
+    selector: storage.selector || "pre>code",
     dest: storage.dest || "pug"
   }
   appendApp(params)

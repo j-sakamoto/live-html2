@@ -10,7 +10,8 @@
     "parcel-bundler": "^1.6.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "serverless": "1.27.3"
+    "serverless": "1.27.3",
+    "shell-escape": "0.2.0"
   },
   "devDependencies": {
     "serverless-offline": "3.25.4"

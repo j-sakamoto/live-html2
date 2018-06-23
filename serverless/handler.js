@@ -2,17 +2,20 @@
 
 const html2pug = require("html2pug")
 const exec = require("child-process-es6-promise").exec
+const shellescape = require('shell-escape');
 
 const pug = (html) => {
   return html2pug(html, { fragment: true })
 }
 
 const haml = (html) => {
-  return execRubyCommand(`echo '${html}' | html2haml -e --stdin --ruby19-attributes`)
+  const escapedHtml = shellescape([html])
+  return execRubyCommand(`./ruby_wrapper.sh haml ${escapedHtml}`)
 }
 
 const slim = (html) => {
-  return execRubyCommand(`echo '${html}' | html2slim`)
+  const escapedHtml = shellescape([html])
+  return execRubyCommand(`./ruby_wrapper.sh slim ${escapedHtml}`)
 }
 
 const execRubyCommand = (command) => {

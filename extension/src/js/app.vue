@@ -33,6 +33,9 @@ export default {
         this.convert()
     },
     convert() {
+      let loading = this.$loading({
+        target: this.target.parentElement
+      })
       const endpoint = process.env.ENDPOINT || "http://localhost:3000/transcode"
       const params = {
         html: String(this.target.innerText),
@@ -43,6 +46,9 @@ export default {
           this.target.innerText = res.data.result
           this.isConverted = true
         })
+        .finally(()=>
+          loading.close()
+        )
     },
     resume() {
       this.target.innerHTML = this.defaultHtml

@@ -1,4 +1,10 @@
 import Vue from 'vue'
+import {
+  Loading
+} from 'element-ui';
+Vue.use(Loading.directive);
+Vue.prototype.$loading = Loading.service;
+import 'element-ui/lib/theme-chalk/index.css';
 import App from './app'
 import axios from "axios"
 Vue.prototype.$axios = axios

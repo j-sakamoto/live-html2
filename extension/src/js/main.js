@@ -6,8 +6,10 @@ Vue.prototype.$axios = axios
 let apps = []
 
 const appendApp = (params) => {
-  const { selector, dest } = params
+  const { selector, dest, enabled } = params
   const targets = document.querySelectorAll(selector)
+
+  if (!enabled) return;
 
   apps = Array.from(targets).map(target => {
     const app = document.createElement("div")
@@ -44,10 +46,11 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
   }
 });
 
-chrome.storage.sync.get(['selector', 'dest'], storage => {
+chrome.storage.sync.get(['selector', 'dest', 'enabled'], storage => {
   const params = {
     selector: storage.selector || "pre>code",
-    dest: storage.dest || "pug"
+    dest: storage.dest || "pug",
+    enabled: storage.enabled || true
   }
   appendApp(params)
 })

@@ -17,7 +17,7 @@ const appendApp = (params) => {
 
   if (!enabled) return;
 
-  apps = Array.from(targets).map(target => {
+  apps = Array.from(targets).filter(target => isHtml(target.innerText)).map(target => {
     const app = document.createElement("div")
     app.setAttribute("class", "liveHtml2App")
     target.insertAdjacentElement("beforebegin", app)
@@ -37,6 +37,8 @@ const appendApp = (params) => {
     })
   })
 }
+
+const isHtml = (innerText) => (innerText.trim().match(/^<(".*?"|'.*?'|[^'"])*?>$/i) !== null)
 
 const resetApp = (selector) => {
   apps.forEach(vue => {

@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     handleConvert(e) {
+
       if (this.isConverted)
         this.resume()
       else

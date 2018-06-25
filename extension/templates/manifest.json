@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "live-html2",
-  "description": "指定されたコードブロックのセレクタに記載されたhtmlをpug記法へ書き換えます。",
-  "version": "2.2.1",
+  "description": "指定されたコードブロックのセレクタに記載されたhtmlをhaml/slim/pug記法へ書き換えます。\nhtmlで記載されたコードを利用する際にローカルや他の変換サイトを経由する手間を省くことができます。",
+  "version": "2.2.2",
   "icons": {
     "16": "icon.png",
     "48": "icon.png",

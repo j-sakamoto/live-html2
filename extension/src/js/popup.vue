@@ -1,19 +1,16 @@
 <template lang="pug">
-div
-  div
-    span Selector:
-    input(type="text" name="selector" v-model.lazy="selector" @change="onChangeSelector")
-  div
-    span Mode:
-    input#pug(type="radio" value="pug" v-model="dest" @change="onChangeDest")
-    label(for="pug") Pug
-    input#haml(type="radio" value="haml" v-model="dest" @change="onChangeDest")
-    label(for="haml") Haml
-    input#slim(type="radio" value="slim" v-model="dest" @change="onChangeDest")
-    label(for="slim") Slim
-  div
-    span Enabled:
-    input#enabled(type="checkbox" v-model="enabled" @change="onChangeEnabled")
+#popup
+  el-form.form(ref='form' label-width='120px' size="mini" label-position="top")
+    el-form-item(label='Selector')
+      el-input(v-model="selector" @change="onChangeSelector")
+    el-form-item(label='Mode')
+      el-radio-group(v-model="dest" @change="onChangeDest")
+        el-radio(label='pug')
+        el-radio(label='haml')
+        el-radio(label='slim')
+    el-form-item(label='Enabled')
+      el-switch(v-model="enabled" @change="onChangeEnabled")
+  .version LiveHtml2 v.{{ chrome.app.getDetails().version }}
 </template>
 
 <script>
@@ -53,17 +50,14 @@ export default {
   },
   methods: {
     onChangeSelector(e) {
-      this.selector = e.target.value
       this.chrome.storage.sync.set({ selector: this.selector })
       this.apply(e)
     },
     onChangeDest(e) {
-      this.dest = e.target.value
       this.chrome.storage.sync.set({ dest: this.dest })
       this.apply(e)
     },
     onChangeEnabled(e) {
-      this.enabled = e.target.checked
       this.chrome.storage.sync.set({ enabled: this.enabled })
       this.apply(e)
     },
@@ -81,3 +75,12 @@ export default {
   },
 }
 </script>
+
+<style lang="sass" scoped>
+#popup
+  width: 260px;
+  padding: 5px 20px;
+  .version
+    text-align: right
+    color: #333
+</style>

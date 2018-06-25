@@ -56,7 +56,7 @@ chrome.storage.sync.get(['selector', 'dest', 'enabled'], storage => {
   const params = {
     selector: storage.selector || "pre>code",
     dest: storage.dest || "pug",
-    enabled: storage.enabled || true
+    enabled: !(storage.enabled === false)
   }
   appendApp(params)
 })
